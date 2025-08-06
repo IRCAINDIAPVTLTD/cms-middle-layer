@@ -1,0 +1,626 @@
+openapi: 3.0.0
+info:
+  title: CMS Web API
+  version: 1.0.0
+  description: API documentation for the CMS backend
+
+servers:
+  - url: /external-api
+    description: Local development server
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+security:
+  - bearerAuth: []
+
+paths:
+  /token:
+    post:
+      summary: Login to receive JWT token
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: admin
+                password:
+                  type: string
+                  example: admin123
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+        '401':
+          description: Unauthorized - Invalid credentials
+        '500':
+          description: Internal Server Error
+  
+  /member/profile/:
+    post:
+      summary: Get member profile details
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Member profile fetched
+        '400':
+          description: Missing or invalid membership number
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+  
+  /member/credit-limit/:
+    post:
+      summary: Get member Credit Limit Details
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Member Credit fetched
+        '400':
+          description: Missing or invalid membership number
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /member/ob/:
+    post:
+      summary: Get member Outstanding Balance
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Member Outstanding fetched
+        '400':
+          description: Missing or invalid membership number
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+  
+  /member/sportsob/:
+    post:
+      summary: Get member Outstanding Balance for Sports
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Member Outstanding fetched
+        '400':
+          description: Missing or invalid membership number
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /member/auth:
+    post:
+      summary: Authenticate member using membership number and password
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - password
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                password:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: Authentication successful
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /member/dependant:
+    post:
+      summary: Get member dependant details
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_id
+              properties:
+                membership_id:
+                  type: string
+                  example: "4845"
+      responses:
+        '200':
+          description: Dependant list returned
+        '400':
+          description: Missing membership ID
+        '401':
+          description: Unauthorized
+        '500':
+          description: Server error
+
+  /send-otp:
+    post:
+      summary: Send OTP to member
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+      responses:
+        '200':
+          description: OTP sent
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /verify-otp:
+    post:
+      summary: Verify OTP for member
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - otp
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                otp:
+                  type: string
+                  example: "123456"   
+      responses:
+        '200':
+          description: OTP Verified successfully
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /member/change-password:
+    post:
+      summary: Change Member Password
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - new_password
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                new_password:
+                  type: string
+                  example: "123456"   
+      responses:
+        '200':
+          description: Password changed successfully
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /member/receipt:
+    post:
+      summary:  Get Member Receipt
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - month
+                - year
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                month:
+                  type: string
+                  example: "01"
+                year:
+                  type: string
+                  example: "2023"    
+      responses:
+        '200':
+          description: Receipt Fetched successfully
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /member/bill:
+    post:
+      summary:  Get Member Bill
+      tags:
+        - Member
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - month
+                - year
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                month:
+                  type: string
+                  example: "01"
+                year:
+                  type: string
+                  example: "2023"    
+      responses:
+        '200':
+          description: Bills Fetched successfully
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /event/list:
+    get:
+      summary: Get list of available events
+      description: >
+        Retrieves a list of all upcoming or active events. Optionally supports pagination or filters.
+      tags:
+        - Event
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 1
+          description: Page number for pagination.
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 10
+          description: Number of records per page.
+        - in: query
+          name: category
+          schema:
+            type: string
+          description: Filter events by category.
+      responses:
+        '200':
+          description: List of events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    example: 50
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "evt_12345"
+                        name:
+                          type: string
+                          example: "Summer Yoga Camp"
+                        category:
+                          type: string
+                          example: "Wellness"
+                        start_date:
+                          type: string
+                          format: date
+                          example: "2025-08-01"
+                        end_date:
+                          type: string
+                          format: date
+                          example: "2025-08-05"
+                        location:
+                          type: string
+                          example: "Main Hall, Center A"
+        '401':
+          description: Unauthorized – token missing or invalid
+        '500':
+          description: Server error
+  
+  /event/list_by_id:
+    get:
+      summary: Get Particular event details by ID
+      description: >
+        Retrieves Event details by ID.
+      tags:
+        - Event
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+            default: 1
+          description: Enter event Id.
+      responses:
+        '200':
+          description: Events retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  total:
+                    type: integer
+                    example: 50
+                  events:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: "evt_12345"
+                        name:
+                          type: string
+                          example: "Summer Yoga Camp"
+                        category:
+                          type: string
+                          example: "Wellness"
+                        start_date:
+                          type: string
+                          format: date
+                          example: "2025-08-01"
+                        end_date:
+                          type: string
+                          format: date
+                          example: "2025-08-05"
+                        location:
+                          type: string
+                          example: "Main Hall, Center A"
+        '401':
+          description: Unauthorized – token missing or invalid
+        '500':
+          description: Server error        
+
+  /event/category:
+      get:
+        summary: Get Event Category
+        description: >
+          Retrieves Event Category.
+        tags:
+          - Event
+        security:
+          - bearerAuth: []
+        responses:
+          '200':
+            description: Events Category retrieved successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    total:
+                      type: integer
+                      example: 50
+                    events:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: "evt_12345"
+                          name:
+                            type: string
+                            example: "Summer Yoga Camp"
+                          category:
+                            type: string
+                            example: "Wellness"
+                          start_date:
+                            type: string
+                            format: date
+                            example: "2025-08-01"
+                          end_date:
+                            type: string
+                            format: date
+                            example: "2025-08-05"
+                          location:
+                            type: string
+                            example: "Main Hall, Center A"
+          '401':
+            description: Unauthorized – token missing or invalid
+          '500':
+            description: Server error
+  
+  /sports/department:
+      get:
+        summary: Get Sports Departments
+        description: >
+          Retrieves the list of sports departments for the specified club code.
+        tags:
+          - Sports
+        security:
+          - bearerAuth: []
+        responses:
+          '200':
+            description: Sports departments retrieved successfully
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    success:
+                      type: boolean
+                      example: true
+                    masters:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: "DPT001"
+                          name:
+                            type: string
+                            example: "Tennis"
+          '400':
+            description: Bad Request – Club code missing
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Club code is required
+          '401':
+            description: Unauthorized – token missing or invalid
+          '500':
+            description: Server error
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Failed to fetch department
+
+
+
