@@ -1,0 +1,64 @@
+
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import session from 'express-session';
+import http from 'http';
+import mongoose from 'mongoose';
+import connectDB from './config/db.js';
+import tokenRoutes from './routes/api/tokenRoutes.js';
+import memberApiRoutes from './routes/api/memberApiRoutes.js';
+import eventApiRoutes from './routes/api/eventApiRoutes.js';
+import sportsApiRoutes from './routes/api/sportsApiRoutes.js';
+
+import pkg from './swagger.js';
+const { setupSwagger } = pkg;
+
+// Load environment variables
+dotenv.config();
+
+// Connect to database
+connectDB();
+
+// Create Express app and HTTP server
+const app = express();
+const server = http.createServer(app);
+
+app.set('trust proxy', 1);
+
+// Middleware
+app.use(cors({
+  origin: process.env.CORS_ORIGIN,
+  credentials: true,
+}));
+
+app.use(express.json());
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'your_super_secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    httpOnly: false,
+    // sameSite: 'none',
+    maxAge: 24 * 60 * 60 * 1000, // 1 day
+  },
+}));
+
+// --- API Routes ---
+app.get('/', (req, res) => res.send('API is running...'));
+
+app.use('/external-api', tokenRoutes);
+app.use('/external-api', memberApiRoutes);
+app.use('/external-api', eventApiRoutes);
+app.use('/external-api', sportsApiRoutes);
+
+setupSwagger(app); // Add Swagger middleware
+
+// --- Start Server ---
+const PORT = process.env.PORT || 5000;
+
+server.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
