@@ -1,8 +1,9 @@
-const axios = require('axios');
-const pushToURL = require("../../helpers/pushHelper");
-const Club = require("../../models/Club");
+import axios from 'axios';
+import pushToURL from '../../helpers/pushHelper.js';
+import Club from "../../models/Club.js";
 
-exports.getEvent = async (req, res) => {
+
+export const getEvent = async (req, res) => {
   try {
 
     const page = req.query.page || 1;
@@ -60,7 +61,7 @@ exports.getEvent = async (req, res) => {
   }
 };
 
-exports.getEventbyId = async (req, res) => {
+export const getEventbyId = async (req, res) => {
   
   try {
   
@@ -108,7 +109,7 @@ exports.getEventbyId = async (req, res) => {
   }
 };
 
-exports.getEventCategory = async (req, res) => {
+export const getEventCategory = async (req, res) => {
   
   try {
   

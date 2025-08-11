@@ -1,18 +1,16 @@
-// models/RequestInfo.js
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const RequestInfoSchema = new mongoose.Schema({
   body: {
-    type: mongoose.Schema.Types.Mixed, // can store any JSON object
+    type: mongoose.Schema.Types.Mixed,
     required: true,
   },
   headers: {
-    type: mongoose.Schema.Types.Mixed, // any headers object
+    type: mongoose.Schema.Types.Mixed,
     required: true,
   },
   query: {
-    type: mongoose.Schema.Types.Mixed, // query params object
+    type: mongoose.Schema.Types.Mixed,
     required: true,
   },
   ip_address: {
@@ -21,7 +19,6 @@ const RequestInfoSchema = new mongoose.Schema({
   },
   device_info: {
     type: String,
-    required: false,
   },
   method: {
     type: String,
@@ -34,7 +31,9 @@ const RequestInfoSchema = new mongoose.Schema({
   response_status: Number,
   response_body: mongoose.Schema.Types.Mixed,
 }, {
-  timestamps: true, // adds createdAt and updatedAt
+  timestamps: true,
 });
 
-module.exports = mongoose.model('RequestInfo', RequestInfoSchema);
+const RequestInfo = mongoose.model('RequestInfo', RequestInfoSchema);
+
+export default RequestInfo;

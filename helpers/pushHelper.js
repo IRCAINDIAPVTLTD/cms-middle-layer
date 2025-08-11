@@ -1,6 +1,5 @@
-// helpers/pushHelper.js
-const axios = require("axios");
-const https = require("https");
+import axios from 'axios';
+import https from 'https';
 
 const pushToURL = async (url, payload = null, method = "POST", headers = null) => {
   try {
@@ -12,7 +11,7 @@ const pushToURL = async (url, payload = null, method = "POST", headers = null) =
       },
       timeout: 10000,
       httpsAgent: new https.Agent({
-        rejectUnauthorized: false, // ⛔ WARNING: Skips SSL certificate validation
+        rejectUnauthorized: false,
       }),
     };
 
@@ -35,4 +34,4 @@ const pushToURL = async (url, payload = null, method = "POST", headers = null) =
   }
 };
 
-module.exports = pushToURL;
+export default pushToURL;

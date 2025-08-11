@@ -1,7 +1,6 @@
-const axios = require('axios');
-const pushToURL = require("../../helpers/pushHelper");
-const Club = require("../../models/Club");
-
+import axios from 'axios';
+import pushToURL from '../../helpers/pushHelper.js';
+import Club from "../../models/Club.js";
 
 const formatDate = (date) => {
   const mm = String(date.getMonth() + 1).padStart(2, "0");
@@ -37,7 +36,7 @@ const groupByBillNumber = (bills) => {
   }, {});
 };
 
-exports.getMemberReceipt = async (req, res) => {
+export const getMemberReceipt = async (req, res) => {
   try {
     const { membership_no, month, year } = req.body;
 
@@ -75,7 +74,7 @@ exports.getMemberReceipt = async (req, res) => {
   }
 };
 
-exports.getMemberBill = async (req, res) => {
+export const getMemberBill = async (req, res) => {
   try {
     const { membership_no, month, year } = req.body;
 

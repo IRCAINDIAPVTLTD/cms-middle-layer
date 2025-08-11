@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const otpSchema = new mongoose.Schema({
   membership_no: { type: String, required: true },
@@ -9,4 +9,6 @@ const otpSchema = new mongoose.Schema({
   expiresAt: { type: Date, required: true },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Otp", otpSchema);
+const Otp = mongoose.model("Otp", otpSchema);
+
+export default Otp;
