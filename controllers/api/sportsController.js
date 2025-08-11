@@ -1,7 +1,8 @@
-const axios = require('axios');
-const pushToURL = require("../../helpers/pushHelper");
+import axios from 'axios';
+import pushToURL from '../../helpers/pushHelper.js';
+import Club from "../../models/Club.js";
 
-exports.getSportsDepartment = async (req, res) => {
+export const getSportsDepartment = async (req, res) => {
   try {
     const url = `${process.env.BASE_URL}/api/sports/SportsDetails`;
     const response = await pushToURL(url, {}, "GET");

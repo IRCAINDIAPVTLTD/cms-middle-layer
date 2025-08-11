@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const clubSchema = new mongoose.Schema({
   club_code: {
@@ -16,27 +16,22 @@ const clubSchema = new mongoose.Schema({
   },
   club_sms_gateway: {
     type: String,
-    required: false,
     default: null
   },
   club_sms_template: {
     type: String,
-    required: false,
     default: null
   },
   club_payment_gateway: {
     type: String,
-    required: false,
     default: null
   },
   club_payment_key_id: {
     type: String,
-    required: false,
     default: null
   },
   club_payment_key_secret: {
     type: String,
-    required: false,
     default: null
   },
   club_status: {
@@ -46,7 +41,8 @@ const clubSchema = new mongoose.Schema({
   }
 }, {
   collection: 'club_master',
-  timestamps: true // <-- This adds createdAt and updatedAt fields automatically
+  timestamps: true
 });
 
-module.exports = mongoose.model('Club', clubSchema);
+const Club = mongoose.model('Club', clubSchema);
+export default Club;

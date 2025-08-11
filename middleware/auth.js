@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 const JWT_SECRET = process.env.JWT_SECRET || 'xyZa278A1#*@';
 
 const verifyToken = (req, res, next) => {
@@ -14,9 +14,9 @@ const verifyToken = (req, res, next) => {
       return res.status(403).json({ message: 'Invalid or expired token' });
     }
 
-    req.user = decoded; // attach decoded info to req.user
+    req.user = decoded;
     next();
   });
 };
 
-module.exports = verifyToken;
+export default verifyToken;

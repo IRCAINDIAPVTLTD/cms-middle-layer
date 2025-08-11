@@ -1,12 +1,11 @@
 
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../../models/User');
-
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import User from '../../models/User.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'xyZa278A1#*@';
 
-exports.generateToken = async (req, res) => {
+export const generateToken = async (req, res) => {
   try {
     if (!req.body) {
       return res.status(400).json({ message: 'Request body is required.' });

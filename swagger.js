@@ -1,11 +1,8 @@
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+
 const swaggerDocument = YAML.load('./swagger.yaml');
 
-function setupSwagger(app) {
+export default function setupSwagger(app) {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 }
-
-module.exports = {
-    setupSwagger
-};

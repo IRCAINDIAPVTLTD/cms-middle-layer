@@ -1,9 +1,9 @@
-const axios = require('axios');
-const pushToURL = require("../../helpers/pushHelper");
-const Club = require("../../models/Club");
-const Otp = require("../../models/Otp");
+import axios from 'axios';
+import pushToURL from '../../helpers/pushHelper.js';
+import Club from "../../models/Club.js";
+import Otp from "../../models/Otp.js";
 
-exports.getMemberOB = async (req, res) => {
+export const getMemberOB = async (req, res) => {
   try {
     const { membership_no } = req.body;
 
@@ -36,7 +36,7 @@ exports.getMemberOB = async (req, res) => {
   }
 };
 
-exports.getMemberSportsOB = async (req, res) => {
+export const getMemberSportsOB = async (req, res) => {
   try {
     const { membership_no } = req.body;
 
@@ -69,7 +69,7 @@ exports.getMemberSportsOB = async (req, res) => {
   }
 };
 
-exports.getMemberCreditLimit = async (req, res) => {
+export const getMemberCreditLimit = async (req, res) => {
   try {
     const { membership_no } = req.body;
 
@@ -128,7 +128,7 @@ exports.getMemberCreditLimit = async (req, res) => {
   }
 };
 
-exports.getMemberProfile = async (req, res) => {
+export const getMemberProfile = async (req, res) => {
   try {
     const { membership_no } = req.body;
 
@@ -161,8 +161,7 @@ exports.getMemberProfile = async (req, res) => {
   }
 };
 
-
-exports.getMemberAuthV2 = async (req, res) => {
+export const getMemberAuthV2 = async (req, res) => {
   try {
     const { membership_no, phone_no } = req.body;
 
@@ -205,7 +204,7 @@ exports.getMemberAuthV2 = async (req, res) => {
   }
 };
 
-exports.getMemberAuth = async (req, res) => {
+export const getMemberAuth = async (req, res) => {
   try {
     const { membership_no, password } = req.body;
 
@@ -245,8 +244,7 @@ exports.getMemberAuth = async (req, res) => {
   }
 };
 
-
-exports.getMemberDependant = async (req, res) => {
+export const getMemberDependant = async (req, res) => {
   try {
     const { membership_id } = req.body;
 
@@ -286,8 +284,7 @@ exports.getMemberDependant = async (req, res) => {
   }
 };
 
-
-exports.getMemberOtp = async (req, res) => {
+export const getMemberOtp = async (req, res) => {
   try {
     const { membership_no } = req.body;
 
@@ -375,7 +372,7 @@ exports.getMemberOtp = async (req, res) => {
   }
 };
 
-exports.getMemberOtpVerify = async (req, res) => {
+export const getMemberOtpVerify = async (req, res) => {
   try {
       
       const { membership_no, otp } = req.body;
@@ -412,7 +409,7 @@ exports.getMemberOtpVerify = async (req, res) => {
   }
 };
 
-exports.getMemberChangePassword = async (req, res) => {
+export const getMemberChangePassword = async (req, res) => {
   try {
     const { membership_no, new_password } = req.body;
 

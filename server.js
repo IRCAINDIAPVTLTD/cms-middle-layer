@@ -14,8 +14,7 @@ import sportsApiRoutes from './routes/api/sportsApiRoutes.js';
 import Rollbar from 'rollbar';
 import logRequestResponse  from './helpers/logRequestResponse.js';
 
-import pkg from './swagger.js';
-const { setupSwagger } = pkg;
+import setupSwagger from './swagger.js';
 
 // Load environment variables
 dotenv.config();

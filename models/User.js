@@ -1,5 +1,5 @@
 // models/admin/User.js
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -37,4 +37,6 @@ const userSchema = new mongoose.Schema({
   timestamps: true, // Adds createdAt and updatedAt
 });
 
-module.exports = mongoose.model('AdminUser', userSchema);
+const AdminUser = mongoose.model('AdminUser', userSchema);
+
+export default AdminUser;
