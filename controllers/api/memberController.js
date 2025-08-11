@@ -161,6 +161,50 @@ exports.getMemberProfile = async (req, res) => {
   }
 };
 
+
+exports.getMemberAuthV2 = async (req, res) => {
+  try {
+    const { membership_no, phone_no } = req.body;
+
+    if (!membership_no || !phone_no) {
+      return res.status(400).json({ message: 'membership_no/phone no. is required' });
+    }
+
+    // Call external API to fetch profile
+    const url = `${process.env.BASE_URL}/api/member/${membership_no}`;
+    const response = await pushToURL(url, {}, "GET");
+    
+    if (!response.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to fetch profile from external service',
+      });
+    }
+
+    const member = response.data[0] || {};
+    const mobile_number = 9620722486;//member.MobileNo?.trim();
+
+    if (!mobile_number || mobile_number !== phone_no) {
+      return res.status(401).json({ 
+        success: false,
+        message: 'Invalid membership number or phone number',
+      });
+    }
+
+    res.json({
+      success: true,
+      member: response.data[0] || {},
+    });
+
+  } catch (err) {
+    console.error('Error fetching member profile:', err?.response?.data || err.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch profile',
+    });
+  }
+};
+
 exports.getMemberAuth = async (req, res) => {
   try {
     const { membership_no, password } = req.body;
@@ -200,6 +244,7 @@ exports.getMemberAuth = async (req, res) => {
     });
   }
 };
+
 
 exports.getMemberDependant = async (req, res) => {
   try {

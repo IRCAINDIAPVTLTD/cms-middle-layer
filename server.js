@@ -10,6 +10,8 @@ import tokenRoutes from './routes/api/tokenRoutes.js';
 import memberApiRoutes from './routes/api/memberApiRoutes.js';
 import eventApiRoutes from './routes/api/eventApiRoutes.js';
 import sportsApiRoutes from './routes/api/sportsApiRoutes.js';
+// include and initialize the rollbar library with your access token
+import Rollbar from 'rollbar';
 
 import pkg from './swagger.js';
 const { setupSwagger } = pkg;
@@ -45,6 +47,16 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000, // 1 day
   },
 }));
+
+
+var rollbar = new Rollbar({
+  accessToken: '3c05a283b1fb4e7191ebdc3e61b3a0bd',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+});
+
+// record a generic message and send it to Rollbar
+app.use(rollbar.errorHandler());
 
 // --- API Routes ---
 app.get('/', (req, res) => res.send('API is running...'));
