@@ -12,6 +12,7 @@ import eventApiRoutes from './routes/api/eventApiRoutes.js';
 import sportsApiRoutes from './routes/api/sportsApiRoutes.js';
 // include and initialize the rollbar library with your access token
 import Rollbar from 'rollbar';
+import logRequestResponse  from './helpers/logRequestResponse.js';
 
 import pkg from './swagger.js';
 const { setupSwagger } = pkg;
@@ -35,6 +36,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+app.use(logRequestResponse);
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_super_secret_key',
