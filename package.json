@@ -28,6 +28,7 @@
     "mongoose": "^8.14.0",
     "node-cron": "^3.0.3",
     "razorpay": "^2.9.6",
+    "rollbar": "^2.26.4",
     "socket.io": "^4.8.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",

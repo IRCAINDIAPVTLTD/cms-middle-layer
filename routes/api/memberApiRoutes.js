@@ -10,6 +10,7 @@ const {
     getMemberOB,
     getMemberSportsOB,
     getMemberCreditLimit,
+    getMemberAuthV2,
 } = require('../../controllers/api/memberController');
 
 const {
@@ -23,6 +24,7 @@ const rateLimiter = require('../../middleware/rateLimiter');
 // Protected route
 router.post('/member/profile', rateLimiter, verifyToken, getMemberProfile);
 router.post('/member/auth', rateLimiter, verifyToken, getMemberAuth);
+router.post('/member/auth-v2', rateLimiter, verifyToken, getMemberAuthV2);
 router.post('/member/dependant', rateLimiter, verifyToken, getMemberDependant);
 router.post('/send-otp',rateLimiter, verifyToken, getMemberOtp);
 router.post('/verify-otp',rateLimiter, verifyToken, getMemberOtpVerify);
