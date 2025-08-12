@@ -734,6 +734,141 @@ paths:
         '500':
           description: Internal server error
 
+  /payment/initiate:
+    post:
+      summary: Initiate payment for a member
+      tags:
+        - Payment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - transaction_id
+                - amount
+              properties:
+                membership_no:
+                  type: string
+                  example: "12345"
+                  description: Membership number of the member
+                transaction_id:
+                  type: string
+                  example: "TXN-20250812-001"
+                  description: Unique transaction ID for payment
+                amount:
+                  type: number
+                  format: float
+                  example: 1500.75
+                  description: Payment amount
+                payment_metadata:
+                  type: object
+                  additionalProperties: true
+                  example:
+                    payment_gateway: "Razorpay"
+                    method: "UPI"
+                    upi_id: "john.doe@upi"
+                  description: Additional payment metadata depending on the payment gateway
+      responses:
+        '200':
+          description: Payment initiated successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: boolean
+                        example: true
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+  /payment/save:
+    post:
+      summary: Save payment transaction details
+      tags:
+        - Payment
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - transaction_id
+                - amount
+                - payment_refno
+              properties:
+                membership_no:
+                  type: string
+                  example: "12345"
+                  description: Membership number of the member
+                transaction_id:
+                  type: string
+                  example: "TXN-20250812-001"
+                  description: Unique transaction ID for payment
+                amount:
+                  type: number
+                  format: float
+                  example: 1500.75
+                  description: Payment amount
+                payment_refno:
+                  type: string
+                  example: "REF-20250812-001"
+                  description: Payment reference number
+                payment_metadata:
+                  type: object
+                  additionalProperties: true
+                  example:
+                    payment_gateway: "Razorpay"
+                    method: "UPI"
+                    upi_id: "john.doe@upi"
+                  description: Additional payment metadata depending on the payment gateway
+      responses:
+        '200':
+          description: Payment saved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: "success"
+                  data:
+                    type: object
+                    properties:
+                      status:
+                        type: boolean
+                        example: true
+                      ReceiptNo:
+                        type: string
+                        example: "2025WEB0000002"
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
+
 
 
 

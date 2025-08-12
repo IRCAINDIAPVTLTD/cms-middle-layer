@@ -10,6 +10,7 @@ import tokenRoutes from './routes/api/tokenRoutes.js';
 import memberApiRoutes from './routes/api/memberApiRoutes.js';
 import eventApiRoutes from './routes/api/eventApiRoutes.js';
 import sportsApiRoutes from './routes/api/sportsApiRoutes.js';
+import paymentApiRoutes from './routes/api/paymentApiRoutes.js'; // Import the new payment API routes
 // include and initialize the rollbar library with your access token
 import Rollbar from 'rollbar';
 import logRequestResponse  from './helpers/logRequestResponse.js';
@@ -67,6 +68,7 @@ app.use('/external-api', tokenRoutes);
 app.use('/external-api', memberApiRoutes);
 app.use('/external-api', eventApiRoutes);
 app.use('/external-api', sportsApiRoutes);
+app.use('/external-api', paymentApiRoutes);
 
 setupSwagger(app); // Add Swagger middleware
 
