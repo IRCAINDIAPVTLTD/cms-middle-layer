@@ -665,7 +665,75 @@ paths:
                   properties:
                     message:
                       type: string
-                      example: Failed to fetch department
+                      example: Failed to fetch department'
+
+  /sports/save:
+    post:
+      summary: Save sports transaction
+      tags:
+        - Sports
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - membership_no
+                - member_name
+                - transaction_date
+                - payment_mode
+                - sports_id
+                - ref_no
+                - amount
+              properties:
+                membership_no:
+                  type: string
+                  example: "1234"
+                  description: Membership number of the member
+                member_name:
+                  type: string
+                  example: "John Doe"
+                  description: Name of the member
+                transaction_date:
+                  type: string
+                  format: date
+                  example: "2025-08-12"
+                  description: Date of the transaction (YYYY-MM-DD)
+                remarks:
+                  type: string
+                  example: "Monthly sports fee"
+                  description: Optional remarks or notes about the transaction
+                payment_mode:
+                  type: string
+                  enum: ["online", ""]
+                  example: "online"
+                  description: Payment mode, "online" or empty string for other modes
+                sports_id:
+                  type: string
+                  example: "14"
+                  description: ID of the sport
+                amount:
+                  type: number
+                  format: float
+                  example: 100.50
+                  description: Amount for the transaction
+                ref_no:
+                  type: string
+                  example: "TXN123456" 
+                  description: Reference number if payment_mode is online, else empty string
+      responses:
+        '200':
+          description: Sports transaction saved successfully
+        '400':
+          description: Missing or invalid data
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+
 
 
 
