@@ -6,7 +6,7 @@ info:
 
 servers:
   - url: /external-api
-    description: Local development server
+    description: CMS API
 
 components:
   securitySchemes:
