@@ -352,7 +352,7 @@ export const getMemberOtp = async (req, res) => {
     
         // Send OTP via SMS using the configured SMS gateway and template
         const message = club_sms_template.replace("{{otp_code}}", otp);
-        const MobileNumber = '9620722486';
+        const MobileNumber = mobile_number;//'9620722486';
     
         const smsGatewayUrl = club_sms_gateway.replace("{mobile}", MobileNumber).replace("{msg}", message);
     
