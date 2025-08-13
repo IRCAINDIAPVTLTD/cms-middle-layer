@@ -17,6 +17,8 @@ import logRequestResponse  from './helpers/logRequestResponse.js';
 
 import setupSwagger from './swagger.js';
 
+import helmet from "helmet"; // Import helmet for security headers
+
 // Load environment variables
 dotenv.config();
 
@@ -30,14 +32,18 @@ const server = http.createServer(app);
 app.set('trust proxy', 1);
 
 // Middleware
-app.use(cors({
-  origin: process.env.CORS_ORIGIN,
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: process.env.CORS_ORIGIN,
+//   credentials: true,
+// }));
 
 app.use(express.json());
 
 app.use(logRequestResponse);
+
+app.use(helmet()); // Use helmet for security headers
+
+app.disable("x-powered-by");
 
 app.use(session({
   secret: process.env.SESSION_SECRET || 'your_super_secret_key',
