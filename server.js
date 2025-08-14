@@ -68,7 +68,8 @@ var rollbar = new Rollbar({
 app.use(rollbar.errorHandler());
 
 // --- API Routes ---
-app.get('/', (req, res) => res.send('API is running...'));
+// app.get('/', (req, res) => res.send('API is running...'));
+app.use(express.static('public'));
 
 app.use('/external-api', tokenRoutes);
 app.use('/external-api', memberApiRoutes);
