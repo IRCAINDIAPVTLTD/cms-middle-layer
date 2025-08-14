@@ -36,10 +36,10 @@ paths:
               properties:
                 username:
                   type: string
-                  example: admin
+                  example: username
                 password:
                   type: string
-                  example: admin123
+                  example: password
       responses:
         '200':
           description: Successful login
