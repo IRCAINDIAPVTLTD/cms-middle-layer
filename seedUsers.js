@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
-const bcrypt = require('bcryptjs'); // or bcryptjs if you used that
-const User = require('./models/User'); // Adjust the path if needed
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs'; // or bcryptjs if you used that
+import User from './models/User.js'; // Adjust the path if needed
 
-const connectDB = require('./config/db');
+import connectDB from './config/db.js';
 
 // Load environment variables
 dotenv.config();
@@ -25,10 +25,10 @@ const seedUsers = async () => {
         status: 'active',
       },
       {
-        username: 'john_doe',
-        password: await bcrypt.hash('password123', 10),
-        email: 'john@example.com',
-        name: 'John Doe',
+        username: 'apibay',
+        password: await bcrypt.hash('bAy@49IN3w', 10),
+        email: 'ram@kelsa.io',
+        name: 'Admin',
         role: 'user',
         status: 'active',
       }
