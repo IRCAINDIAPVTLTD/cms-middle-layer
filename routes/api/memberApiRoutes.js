@@ -12,6 +12,7 @@ import {
     getMemberSportsOB,
     getMemberCreditLimit,
     getMemberAuthV2,
+    getMemberOBMonthly,
 } from '../../controllers/api/memberController.js';
 
 import {
@@ -34,6 +35,7 @@ router.post('/member/receipt', rateLimiter, verifyToken, getMemberReceipt);
 router.post('/member/bill', rateLimiter, verifyToken, getMemberBill);
 router.post('/member/ob', rateLimiter, verifyToken, getMemberOB);
 router.post('/member/sportsob', rateLimiter, verifyToken, getMemberSportsOB);
+router.post('/member/ob_by_date', rateLimiter, verifyToken, getMemberOBMonthly);
 router.post('/member/credit-limit', rateLimiter, verifyToken, getMemberCreditLimit);
 
 export default router;
