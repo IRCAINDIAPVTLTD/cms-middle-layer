@@ -36,6 +36,39 @@ export const getMemberOB = async (req, res) => {
   }
 };
 
+export const getMemberOBMonthly = async (req, res) => {
+  try {
+    const { membership_no, date } = req.body;
+
+    if (!membership_no || !date) {
+      return res.status(400).json({ message: 'membership_no/date is required' });
+    }
+
+    const url = `${process.env.BASE_URL}/api/member/OBWithDate/${membership_no}/${date}`;
+    const response = await pushToURL(url, {}, "GET");
+
+    if (!response.success) {
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to fetch outstanding balance from external service',
+      });
+    }
+
+    res.json({
+      success: true,
+      member: response.data || {},
+    });
+
+  } catch (err) {
+    console.error('Error fetching member outstanding:', err?.response?.data || err.message);
+    res.status(500).json({
+      success: false,
+      message: 'Failed to fetch outstanding balance',
+    });
+  }
+};
+
+
 export const getMemberSportsOB = async (req, res) => {
   try {
     const { membership_no } = req.body;
